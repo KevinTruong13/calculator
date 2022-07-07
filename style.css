@@ -1,0 +1,40 @@
+:root {
+    --calculator-element-margins: .5rem;
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: darkslategray;
+    }
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+main {
+    max-width: 50vw;
+    padding: var(--calculator-element-margins);
+    background-color: lightgray;
+}
+
+.display {
+    min-height: 2rem;
+    background-color: darkseagreen;
+    margin: 0 0 var(--calculator-element-margins);
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--calculator-element-margins);
+}
