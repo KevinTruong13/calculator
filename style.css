@@ -1,5 +1,5 @@
 :root {
-    --calculator-element-margins: .5rem;
+    --calculator-element-padding: .4rem;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -19,22 +19,46 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: sans-serif;
 }
 
 main {
-    max-width: 50vw;
-    padding: var(--calculator-element-margins);
     background-color: lightgray;
+    border-radius: 2% 8%;
+    overflow: hidden;
+}
+
+button {
+    padding: var(--calculator-element-padding);
+}
+
+body, button {
+    font-size: 2rem;
+}
+
+.upper,  .buttons {
+    padding: 2rem;
+}
+
+.upper {
+    background-color: gray;
 }
 
 .display {
-    min-height: 2rem;
+    min-height: 1rem;
+    padding: var(--calculator-element-padding);
     background-color: darkseagreen;
-    margin: 0 0 var(--calculator-element-margins);
+    margin: 0 0 1rem;
+    border-radius: 2%;
 }
 
 .buttons {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: var(--calculator-element-margins);
+    gap: 1rem;
+}
+
+#clear {
+    font-size: 1.25rem;
+    font-weight: 600;
 }
