@@ -10,3 +10,7 @@ function add(addend1, addend2) {
 function subtract(base, minuend) {
     return strip(base - minuend);
 }
+
+function multiply(multiplicand1, multiplicand2) {
+    return strip(multiplicand1 * multiplicand2);
+}
