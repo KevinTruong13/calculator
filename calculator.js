@@ -14,3 +14,7 @@ function subtract(base, minuend) {
 function multiply(multiplicand1, multiplicand2) {
     return strip(multiplicand1 * multiplicand2);
 }
+
+function divide(dividend, divisor) {
+    return strip(dividend / divisor);
+}
