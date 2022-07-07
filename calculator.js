@@ -18,3 +18,7 @@ function multiply(multiplicand1, multiplicand2) {
 function divide(dividend, divisor) {
     return strip(dividend / divisor);
 }
+
+function operate(operation, num1, num2) {
+    return operation(num1, num2);
+}
