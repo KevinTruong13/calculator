@@ -19,6 +19,14 @@ function divide(dividend, divisor) {
     return strip(dividend / divisor);
 }
 
+function exponentiate(base, power) {
+    return strip(Math.pow(base, power));
+}
+
 function operate(operation, num1, num2) {
-    return operation(num1, num2);
+    const result = operation(num1, num2);
+    if (!result) {
+        return 'ERROR';
+    }
+    return result;
 }
