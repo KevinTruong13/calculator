@@ -6,3 +6,7 @@ function strip(number) {
 function add(addend1, addend2) {
     return strip(addend1 + addend2);
 }
+
+function subtract(base, minuend) {
+    return strip(base - minuend);
+}
