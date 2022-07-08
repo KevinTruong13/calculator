@@ -28,11 +28,13 @@ main {
     background-color: lightgray;
     border-radius: 2% 8%;
     overflow: hidden;
+    box-shadow: -1rem 1rem #263f3f;
 }
 
 button {
     padding: var(--calculator-element-padding);
     font-size: 2rem;
+    border-radius: .3rem;
 }
 
 .upper,  .buttons {
