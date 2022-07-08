@@ -75,4 +75,5 @@ for (i = FIRST_NUMBER; i <= LAST_NUMBER; i++) {
     numberButton = document.querySelector(`#num${i}`)
     numberButton.addEventListener('click', numberButtonHandler);
 }
-document.querySelector('#clear').addEventListener('click', calculation.clearCalculator)
+document.querySelector('#clear').addEventListener('click', calculation.clearCalculator);
+document.querySelector('#backspace').addEventListener('click', () => calculation.setDisplayValue(calculation.getDisplayValue().slice(0, -1)));
