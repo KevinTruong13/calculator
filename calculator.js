@@ -59,15 +59,20 @@ function Calculation(start = null) {
     this._operation = start,
     this.getOperation = () => this._operation,
     this.setOperation = (operation = start) => this._operation = operation
+    this.clearCalculator = () => {
+        this.setDisplayValue();
+        this.setPrevValue();
+        this.setOperation();
+    };
 }
 
 const FIRST_NUMBER = 1;
 const LAST_NUMBER = 9;
 const CHARACTER_INDEX_OF_NUMBER_IN_NUMERAL_BUTTON_ID = 3
-
 const calculation = new Calculation();
 
 for (i = FIRST_NUMBER; i <= LAST_NUMBER; i++) {
     numberButton = document.querySelector(`#num${i}`)
     numberButton.addEventListener('click', numberButtonHandler);
 }
+document.querySelector('#clear').addEventListener('click', calculation.clearCalculator)
