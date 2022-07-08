@@ -85,7 +85,7 @@ function operationButtonEventHandler() {
 }
 
 function setOperationAvailability(unavailableOperation) {
-    OPERATION_BUTTONS.forEach(button => button.classList.remove('unavailable'));console.log(unavailableOperation);
+    OPERATION_BUTTONS.forEach(button => button.classList.remove('unavailable'));
     if (unavailableOperation != undefined) {
         unavailableOperation.classList.add('unavailable');
     }
@@ -136,3 +136,8 @@ document.querySelector('#backspace').addEventListener('click', backspaceButtonHa
 document.querySelector('#change-sign').addEventListener('click', changeSignButtonHandler);
 document.querySelector('#period').addEventListener('click', periodButtonHandler);
 OPERATION_BUTTONS.forEach(operationButton => operationButton.addEventListener('click', operationButtonEventHandler));
+document.querySelector('#equals').addEventListener('click', () => {
+    if (calculation.getDisplayValue() != null && calculation.getPrevValue() != null) {
+        calculation.operate();
+    } 
+});
