@@ -162,3 +162,16 @@ document.querySelector('#change-sign').addEventListener('click', changeSignButto
 document.querySelector('#period').addEventListener('click', periodButtonHandler);
 OPERATION_BUTTONS.forEach(operationButton => operationButton.addEventListener('click', operationButtonEventHandler));
 document.querySelector('#equals').addEventListener('click', equalsButtonEventHandler);
+document.addEventListener('keydown', e => {
+    const key = e.key;
+    if (key === 'Escape') {
+        calculation.clearCalculator();
+    } else if (key === 'Delete') {
+        document.querySelector('backspace').click();
+    } else if (key === '-' && calculation.getDisplayValue === null) {
+        document.querySelector('#change-sign').click();
+    } else {
+        // Finds button whose text content matches key pressed
+        const matchingButton = Array.from(document.querySelectorAll('button')).find(button => button.textContent === key)?.click();
+    }
+});
