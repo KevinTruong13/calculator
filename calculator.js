@@ -45,13 +45,11 @@ function numberButtonHandler() {
 }
 
 function changeSignButtonHandler() {
-    const displayValue = calculation.getDisplayValue();;
-    if (displayValue === null) {
-        calculation.appendDisplayValue('-');
-    } else if (displayValue === '-') {
-        calculation.setDisplayValue();
+    const displayValue = calculation.getDisplayValue();
+    if (displayValue.includes('-')) {
+        calculation.setDisplayValue(displayValue.slice(1));
     } else {
-        calculation.setDisplayValue((-+calculation.getDisplayValue()));
+        calculation.setDisplayValue('-' + displayValue);
     }
 }
 
@@ -62,6 +60,10 @@ function backspaceButtonHandler() {
     } else {
         calculation.setDisplayValue(displayValue.slice(0, -1));
     }
+}
+
+function periodButtonHandler() {
+    
 }
 
 // Numbers stored as strings. Value of an empty field is assumed to always be null.
@@ -101,4 +103,4 @@ for (i = FIRST_NUMBER; i <= LAST_NUMBER; i++) {
 document.querySelector('#clear').addEventListener('click', calculation.clearCalculator);
 document.querySelector('#backspace').addEventListener('click', backspaceButtonHandler);
 document.querySelector('#change-sign').addEventListener('click', changeSignButtonHandler);
-// document.querySelector('#period').addEventListener('click', )
+document.querySelector('#period').addEventListener('click', periodButtonHandler);
