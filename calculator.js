@@ -46,6 +46,7 @@ function numberButtonHandler() {
     calculation.setDisplayValue(numResult);
 }
 
+// Numbers stored as strings
 function Calculation(start = null) {
     this._displayValue = start,
     this.getDisplayValue = () => this._displayValue,
@@ -77,3 +78,4 @@ for (i = FIRST_NUMBER; i <= LAST_NUMBER; i++) {
 }
 document.querySelector('#clear').addEventListener('click', calculation.clearCalculator);
 document.querySelector('#backspace').addEventListener('click', () => calculation.setDisplayValue(calculation.getDisplayValue().slice(0, -1)));
+document.querySelector('#change-sign').addEventListener('click', () => calculation.setDisplayValue(-+calculation.getDisplayValue()));
