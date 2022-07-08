@@ -36,24 +36,23 @@ function setDisplay(displayValue) {
 }
 
 function numberButtonHandler() {
-    if (calculation.getOperation() != null && calculation.getPrevValue() === null) {  // If second num of operation not entered yet, but an operation has, start entering second num
-        calculation.setPrevValue(calculation.getDisplayValue());
-        calculation.setDisplayValue();
-    }
+    ifStoreDisplay();
     const numButton = this.id.charAt(CHARACTER_INDEX_OF_NUMBER_IN_NUMERAL_BUTTON_ID);   // String number
     calculation.appendDisplayValue(numButton);
-    if (calculation.getPrevValue() != null && calculation.getDisplayValue().length === 1) {
-        setOperationAvailability();
-    }
+    ifOperationAvailability();
 }
 
 function changeSignButtonHandler() {
+    ifStoreDisplay();
     const displayValue = calculation.getDisplayValue();
-    if (displayValue.includes('-')) {
+    if (displayValue === null) {
+        calculation.appendDisplayValue('-');
+    } else if (displayValue.includes('-')) {
         calculation.setDisplayValue(displayValue.slice(1));
     } else {
         calculation.setDisplayValue('-' + displayValue);
     }
+    ifOperationAvailability();
 }
 
 function backspaceButtonHandler() {
@@ -66,9 +65,17 @@ function backspaceButtonHandler() {
 }
 
 function periodButtonHandler() {
+    ifStoreDisplay();
     const displayValue = calculation.getDisplayValue();
     if (displayValue === null || !displayValue.includes('.')) {
         calculation.appendDisplayValue('.');
+    }
+    ifOperationAvailability();
+}
+
+function ifStoreDisplay() {
+    if (calculation.getPrevValue() === null && calculation.getOperation() != null) {
+        calculation.storeDisplay();
     }
 }
 
@@ -84,10 +91,22 @@ function operationButtonEventHandler() {
     }
 }
 
+function equalsButtonEventHandler() {
+    if (calculation.getDisplayValue() != null && calculation.getPrevValue() != null) {
+        calculation.operate();
+    } 
+}
+
 function setOperationAvailability(unavailableOperation) {
     OPERATION_BUTTONS.forEach(button => button.classList.remove('unavailable'));
     if (unavailableOperation != undefined) {
         unavailableOperation.classList.add('unavailable');
+    }
+}
+
+function ifOperationAvailability() {
+    if (calculation.getPrevValue() != null && calculation.getDisplayValue().length === 1) {
+        setOperationAvailability();
     }
 }
 
@@ -113,10 +132,16 @@ function Calculation(start = null) {
         this.setDisplayValue();
         this.setPrevValue();
         this.setOperation();
+        setOperationAvailability();
     };
     this.operate = () => {
         this.setDisplayValue(operate(this.getOperation(), this.getPrevValue(), this.getDisplayValue()));
         this.setPrevValue();
+        this.setOperation();
+    }
+    this.storeDisplay = () => {
+        calculation.setPrevValue(calculation.getDisplayValue());
+        calculation.setDisplayValue();
     }
 }
 
@@ -136,8 +161,4 @@ document.querySelector('#backspace').addEventListener('click', backspaceButtonHa
 document.querySelector('#change-sign').addEventListener('click', changeSignButtonHandler);
 document.querySelector('#period').addEventListener('click', periodButtonHandler);
 OPERATION_BUTTONS.forEach(operationButton => operationButton.addEventListener('click', operationButtonEventHandler));
-document.querySelector('#equals').addEventListener('click', () => {
-    if (calculation.getDisplayValue() != null && calculation.getPrevValue() != null) {
-        calculation.operate();
-    } 
-});
+document.querySelector('#equals').addEventListener('click', equalsButtonEventHandler);
