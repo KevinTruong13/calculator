@@ -24,7 +24,7 @@ function exponentiate(base, power) {
 }
 
 function operate(operation, num1, num2) {
-    const result = operation(num1, num2);
+    const result = operation(+num1, +num2);
     if (!result) {
         return 'ERROR';
     }
@@ -36,7 +36,7 @@ function setDisplay(displayValue) {
 }
 
 function numberButtonHandler() {
-    if (calculation.getOperation() != null && calculation.getPrevValue === null) {  // If second num of operation not entered yet, but an operation has, start entering second num
+    if (calculation.getOperation() != null && calculation.getPrevValue() === null) {  // If second num of operation not entered yet, but an operation has, start entering second num
         calculation.setPrevValue(calculation.getDisplayValue());
         calculation.setDisplayValue();
     }
@@ -69,6 +69,17 @@ function periodButtonHandler() {
     }
 }
 
+function operationButtonEventHandler() {
+    const displayValue = calculation.getDisplayValue(),
+        prevValue = calculation.getPrevValue();
+    if (displayValue != null) {
+        if (prevValue != null) {
+            calculation.operate();
+        }
+        calculation.setOperation(window[this.id]);
+    }
+}
+
 // Numbers stored as strings. Value of an empty field is assumed to always be null.
 function Calculation(start = null) {
     this._displayValue = start,
@@ -84,7 +95,7 @@ function Calculation(start = null) {
     this.getOperation = () => this._operation,
     this.setOperation = (operation = start) => this._operation = operation,
     this.appendDisplayValue = (num) => {
-        const numResult = (this.getDisplayValue() === null) ? num : this.getDisplayValue() + num;console.log(numResult);
+        const numResult = (this.getDisplayValue() === null) ? num : this.getDisplayValue() + num;
         this.setDisplayValue(numResult);
     }
     this.clearCalculator = () => {
@@ -92,11 +103,16 @@ function Calculation(start = null) {
         this.setPrevValue();
         this.setOperation();
     };
+    this.operate = () => {
+        this.setDisplayValue(operate(this.getOperation(), this.getPrevValue(), this.getDisplayValue()));
+        this.setPrevValue();
+    }
 }
 
 const FIRST_NUMBER = 0;
 const LAST_NUMBER = 9;
 const CHARACTER_INDEX_OF_NUMBER_IN_NUMERAL_BUTTON_ID = 3
+const NUMBER_OF_OPERATIONS = 5;
 const calculation = new Calculation();
 
 for (i = FIRST_NUMBER; i <= LAST_NUMBER; i++) {
@@ -107,3 +123,4 @@ document.querySelector('#clear').addEventListener('click', calculation.clearCalc
 document.querySelector('#backspace').addEventListener('click', backspaceButtonHandler);
 document.querySelector('#change-sign').addEventListener('click', changeSignButtonHandler);
 document.querySelector('#period').addEventListener('click', periodButtonHandler);
+document.querySelectorAll('#add, #subtract, #divide, #multiply, #exponentiate').forEach(operationButton => operationButton.addEventListener('click', operationButtonEventHandler));
