@@ -36,27 +36,38 @@ function setDisplay(displayValue) {
 }
 
 function numberButtonHandler() {
-    
+    if (calculation.getOperation() != null && calculation.getPrevValue != null) {
+        calculation.setPrevValue(calculation.getDisplayValue());
+        calculation.setDisplayValue();
+    }
+    const numButton = this.id.charAt(CHARACTER_INDEX_OF_NUMBER_IN_NUMERAL_BUTTON_ID);   // String number
+    const currDisplayValue = calculation.getDisplayValue();
+    const numResult = (currDisplayValue === null) ? numButton : currDisplayValue + numButton;
+    calculation.setDisplayValue(numResult);
 }
 
-function Calculation() {
-    this._displayValue,
-    this.getDisplayValue = () => _displayValue,
-    this.setDisplayValue = (displayValue) => {
-        _displayValue = displayValue;
-        setDisplay(_displayValue);
+function Calculation(start = null) {
+    this._displayValue = start,
+    this.getDisplayValue = () => this._displayValue,
+    this.setDisplayValue = (displayValue = start) => {
+        this._displayValue = displayValue;
+        setDisplay(this._displayValue);
     }
-    this._prevValue,
-    this.getPrevValue = () => _prevValue,
-    this.setPrevValue = (prevValue) => _prevValue = prevValue,
-    this._operation,
-    this.getOperation = () => _operation,
-    this.setOperation = (operation) => _operation = operation
+    this._prevValue = start,
+    this.getPrevValue = () => this._prevValue,
+    this.setPrevValue = (prevValue = start) => this._prevValue = prevValue,
+    this._operation = start,
+    this.getOperation = () => this._operation,
+    this.setOperation = (operation = start) => this._operation = operation
 }
+
+const FIRST_NUMBER = 1;
+const LAST_NUMBER = 9;
+const CHARACTER_INDEX_OF_NUMBER_IN_NUMERAL_BUTTON_ID = 3
 
 const calculation = new Calculation();
 
-for (i = 0; i < 10; i++) {
-    numberButton = document.querySelector(`#${i}`)
+for (i = FIRST_NUMBER; i <= LAST_NUMBER; i++) {
+    numberButton = document.querySelector(`#num${i}`)
     numberButton.addEventListener('click', numberButtonHandler);
 }
