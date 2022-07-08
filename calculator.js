@@ -30,3 +30,33 @@ function operate(operation, num1, num2) {
     }
     return result;
 }
+
+function setDisplay(displayValue) {
+    document.querySelector('.display').textContent = displayValue;
+}
+
+function numberButtonHandler() {
+    
+}
+
+function Calculation() {
+    this._displayValue,
+    this.getDisplayValue = () => _displayValue,
+    this.setDisplayValue = (displayValue) => {
+        _displayValue = displayValue;
+        setDisplay(_displayValue);
+    }
+    this._prevValue,
+    this.getPrevValue = () => _prevValue,
+    this.setPrevValue = (prevValue) => _prevValue = prevValue,
+    this._operation,
+    this.getOperation = () => _operation,
+    this.setOperation = (operation) => _operation = operation
+}
+
+const calculation = new Calculation();
+
+for (i = 0; i < 10; i++) {
+    numberButton = document.querySelector(`#${i}`)
+    numberButton.addEventListener('click', numberButtonHandler);
+}

@@ -1,5 +1,6 @@
 :root {
-    --calculator-element-padding: .4rem;
+    --calculator-element-padding: .5rem;
+    --display-font-size: 2.5rem;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -20,6 +21,7 @@ body {
     justify-content: center;
     align-items: center;
     font-family: sans-serif;
+    font-size: var(--display-font-size);
 }
 
 main {
@@ -30,9 +32,6 @@ main {
 
 button {
     padding: var(--calculator-element-padding);
-}
-
-body, button {
     font-size: 2rem;
 }
 
@@ -45,11 +44,12 @@ body, button {
 }
 
 .display {
-    min-height: 1rem;
-    padding: var(--calculator-element-padding);
+    min-height: calc(var(--display-font-size) + 2 * var(--calculator-element-padding));     /* Sizes height to fontsize + padding */
+    line-height: var(--display-font-size);
+    padding: var(--calculator-element-padding) 1.5rem;
     background-color: darkseagreen;
-    margin: 0 0 1rem;
-    border-radius: 2%;
+    border-radius: .3rem;
+    text-align: right;
 }
 
 .buttons {
@@ -60,5 +60,5 @@ body, button {
 
 #clear {
     font-size: 1.25rem;
-    font-weight: 600;
+    font-weight: bold;
 }
