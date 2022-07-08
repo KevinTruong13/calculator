@@ -170,6 +170,12 @@ document.addEventListener('keydown', e => {
         document.querySelector('backspace').click();
     } else if (key === '-' && calculation.getDisplayValue === null) {
         document.querySelector('#change-sign').click();
+    } else if (key === 'Enter') {
+        document.querySelector('#equals').click();
+    } else if (key === '/') {
+        document.querySelector('#divide').click();
+    } else if (key === '*') {
+        document.querySelector('#multiply').click();
     } else {
         // Finds button whose text content matches key pressed
         const matchingButton = Array.from(document.querySelectorAll('button')).find(button => button.textContent === key)?.click();
