@@ -63,6 +63,6 @@ button {
     font-weight: bold;
 }
 
-#\1 {
-    background-color: black;
-}
+.unavailable {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.2) 0 0);
+  }

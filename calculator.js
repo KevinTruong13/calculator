@@ -42,6 +42,9 @@ function numberButtonHandler() {
     }
     const numButton = this.id.charAt(CHARACTER_INDEX_OF_NUMBER_IN_NUMERAL_BUTTON_ID);   // String number
     calculation.appendDisplayValue(numButton);
+    if (calculation.getPrevValue() != null && calculation.getDisplayValue().length === 1) {
+        setOperationAvailability();
+    }
 }
 
 function changeSignButtonHandler() {
@@ -77,6 +80,14 @@ function operationButtonEventHandler() {
             calculation.operate();
         }
         calculation.setOperation(window[this.id]);
+        setOperationAvailability(this);
+    }
+}
+
+function setOperationAvailability(unavailableOperation) {
+    OPERATION_BUTTONS.forEach(button => button.classList.remove('unavailable'));console.log(unavailableOperation);
+    if (unavailableOperation != undefined) {
+        unavailableOperation.classList.add('unavailable');
     }
 }
 
@@ -113,6 +124,7 @@ const FIRST_NUMBER = 0;
 const LAST_NUMBER = 9;
 const CHARACTER_INDEX_OF_NUMBER_IN_NUMERAL_BUTTON_ID = 3
 const NUMBER_OF_OPERATIONS = 5;
+const OPERATION_BUTTONS = document.querySelectorAll('#add, #subtract, #divide, #multiply, #exponentiate');
 const calculation = new Calculation();
 
 for (i = FIRST_NUMBER; i <= LAST_NUMBER; i++) {
@@ -123,4 +135,4 @@ document.querySelector('#clear').addEventListener('click', calculation.clearCalc
 document.querySelector('#backspace').addEventListener('click', backspaceButtonHandler);
 document.querySelector('#change-sign').addEventListener('click', changeSignButtonHandler);
 document.querySelector('#period').addEventListener('click', periodButtonHandler);
-document.querySelectorAll('#add, #subtract, #divide, #multiply, #exponentiate').forEach(operationButton => operationButton.addEventListener('click', operationButtonEventHandler));
+OPERATION_BUTTONS.forEach(operationButton => operationButton.addEventListener('click', operationButtonEventHandler));
