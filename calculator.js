@@ -63,7 +63,10 @@ function backspaceButtonHandler() {
 }
 
 function periodButtonHandler() {
-    
+    const displayValue = calculation.getDisplayValue();
+    if (displayValue === null || !displayValue.includes('.')) {
+        calculation.appendDisplayValue('.');
+    }
 }
 
 // Numbers stored as strings. Value of an empty field is assumed to always be null.
@@ -81,7 +84,7 @@ function Calculation(start = null) {
     this.getOperation = () => this._operation,
     this.setOperation = (operation = start) => this._operation = operation,
     this.appendDisplayValue = (num) => {
-        const numResult = (this.getDisplayValue() === null) ? num : this.getDisplayValue() + num;
+        const numResult = (this.getDisplayValue() === null) ? num : this.getDisplayValue() + num;console.log(numResult);
         this.setDisplayValue(numResult);
     }
     this.clearCalculator = () => {
